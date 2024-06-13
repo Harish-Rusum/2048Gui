@@ -30,17 +30,16 @@ def addNum(mat, score):
     empty_cells = [(i, j) for i in range(4) for j in range(4) if mat[i][j] == 0]
     if empty_cells:
         i, j = random.choice(empty_cells)
-        mat[i][j] = random.choice([2, 4])
+        mat[i][j] = random.choice([2, 4, 8])
         score += 1
     return mat, score
 
 backgrounds = {
     0: pygame.image.load("assets/brown.png"),
     30: pygame.image.load("assets/blue.png"),
-    60: pygame.image.load("assets/yellow.png"),
-    90: pygame.image.load("assets/wood.png"),
-    120: pygame.image.load("assets/metal.png"),
-    150: pygame.image.load("assets/marble.png"),
+    60: pygame.image.load("assets/wood.png"),
+    90: pygame.image.load("assets/metal.png"),
+    120: pygame.image.load("assets/marble.png"),
 }
 
 def getBg(sc):
