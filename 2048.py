@@ -35,16 +35,16 @@ def addNum(mat, score):
     return mat, score
 
 backgrounds = {
-    0: pygame.image.load("assets/blue/letter.png"),
-    20: pygame.image.load("assets/brown.png"),
-    40: pygame.image.load("assets/wood.png"),
-    60: pygame.image.load("assets/marble.png"),
-    80: pygame.image.load("assets/marble.png"),
-    100: pygame.image.load("assets/marble.png"),
+    0: pygame.image.load("assets/brown.png"),
+    30: pygame.image.load("assets/blue.png"),
+    60: pygame.image.load("assets/yellow.png"),
+    90: pygame.image.load("assets/wood.png"),
+    120: pygame.image.load("assets/metal.png"),
+    150: pygame.image.load("assets/marble.png"),
 }
 
 def getBg(sc):
-    return backgrounds[math.floor(sc / 20.0) * 20]
+    return backgrounds[math.floor(sc / 30.0) * 30]
 
 board = startPos()
 
