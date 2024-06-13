@@ -3,19 +3,19 @@ def collisionCalc(mat, dir):
         if reverse:
             row = row[::-1]
         
-        new_row = [i for i in row if i != 0]
-        for i in range(len(new_row) - 1):
-            if new_row[i] == new_row[i + 1]:
-                new_row[i] *= 2
-                new_row[i + 1] = 0
+        newRow = [i for i in row if i != 0]
+        for i in range(len(newRow) - 1):
+            if newRow[i] == newRow[i + 1]:
+                newRow[i] *= 2
+                newRow[i + 1] = 0
         
-        new_row = [i for i in new_row if i != 0]
-        new_row += [0] * (len(row) - len(new_row))
+        newRow = [i for i in newRow if i != 0]
+        newRow += [0] * (len(row) - len(newRow))
         
         if reverse:
-            new_row = new_row[::-1]
+            newRow = newRow[::-1]
         
-        return new_row
+        return newRow
     
     if dir == "r":
         for j in range(len(mat)):
