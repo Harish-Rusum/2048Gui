@@ -11,7 +11,7 @@ running = True
 
 from scripts.gravity import gravCalc
 from scripts.collision import collisionCalc
-from utils.CenteringEngine import centerImageX,centerImageY
+from utils.CenteringEngine import center
 from utils.TextEngine import textRender
 
 
@@ -60,13 +60,16 @@ def main():
                     board = gravCalc(collisionCalc(gravCalc(board, "l"),"l"),"l")
                     board = addNum(board)
         
-        screen.fill("#000000")
-        x,y = 0,0
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                screen.blit(textRender(str(board[j][i]),"#ffffff",40), (x, y))
-                y += 100
-            x += 100
-            y = 0
+            screen.fill("#000000")
+            x,y = 0,0
+            for i in range(len(board)):
+                for j in range(len(board[0])):
+                    if board[j][i] > 0:
+                        screen.blit(pygame.transform.scale(pygame.image.load("assets/wood.png").convert_alpha(),(100,100)),(x,y))
+                        text = textRender(str(board[j][i]),"#ffffff",40)
+                        screen.blit(text, (center(text,100, 100)[0]+x,center(text, 100, 100)[1]+y))
+                    y += 100
+                x += 100
+                y = 0
         pygame.display.flip()
 main()
