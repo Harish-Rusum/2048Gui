@@ -6,6 +6,7 @@ pygame.init()
 
 screenHeight, screenWidth = 460, 410
 screen = pygame.display.set_mode((screenWidth, screenHeight))
+pygame.display.set_caption("2048")
 clock = pygame.time.Clock()
 fps = 60
 running = True
@@ -83,7 +84,7 @@ def main():
                     textPos = center(text, 90, 90)
                     screen.blit(text, (x + 10 + textPos[0], y + 10 + textPos[1]))
         
-        displayLevelup(score, screen, (20, 20))
+        displayLevelup(score, screen, (20, 25))
         pygame.display.flip()
         clock.tick(fps)
 
