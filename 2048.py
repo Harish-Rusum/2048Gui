@@ -5,7 +5,7 @@ import math
 
 pygame.init()
 
-screenHeight, screenWidth = 400, 400
+screenHeight, screenWidth = 450, 400
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 clock = pygame.time.Clock()
 fps = 60
@@ -64,6 +64,7 @@ def main():
     global board
     score = 0
     levelScore = 0
+    yOffset = 50
 
     while running:
         for event in pygame.event.get():
@@ -89,11 +90,11 @@ def main():
                 x, y = j * 100, i * 100
                 if board[i][j] > 0:
                     screen.blit(
-                        pygame.transform.scale(getBg(score), (100, 100)), (x, y)
+                        pygame.transform.scale(getBg(score), (100, 100)), (x, y + yOffset)
                     )
                     text = textRender(str(board[i][j]), "#ffffff", 20)
                     text_pos = center(text, 100, 100)
-                    screen.blit(text, (x + text_pos[0], y + text_pos[1]))
+                    screen.blit(text, (x + text_pos[0], y + text_pos[1] + yOffset))
                     displayLevelup(levelScore, screen, (20, 20))
         levelScore = score % 30
         pygame.display.flip()
