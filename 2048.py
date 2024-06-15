@@ -62,14 +62,20 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
-                if event.key in (pygame.K_w, pygame.K_s, pygame.K_d, pygame.K_a):
-                    directions = {
-                        pygame.K_w: "u",
-                        pygame.K_s: "d",
-                        pygame.K_d: "r",
-                        pygame.K_a: "l",
-                    }
-                    dir = directions[event.key]
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
+                    dir = "u"
+                    board = gravCalc(collisionCalc(gravCalc(board, dir), dir), dir)
+                    board, score = addNum(board, score)
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                    dir = "d"
+                    board = gravCalc(collisionCalc(gravCalc(board, dir), dir), dir)
+                    board, score = addNum(board, score)
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                    dir = "r"
+                    board = gravCalc(collisionCalc(gravCalc(board, dir), dir), dir)
+                    board, score = addNum(board, score)
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                    dir = "l"
                     board = gravCalc(collisionCalc(gravCalc(board, dir), dir), dir)
                     board, score = addNum(board, score)
 
