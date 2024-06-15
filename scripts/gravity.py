@@ -16,5 +16,8 @@ def gravCalc(mat, dir):
             else:
                 row = sorted(row, key=lambda x: x == 0, reverse=True)
             transposed[i] = row
-        mat = [[transposed[j][i] for j in range(len(transposed))] for i in range(len(transposed[0]))]
+        mat = [
+            [transposed[j][i] for j in range(len(transposed))]
+            for i in range(len(transposed[0]))
+        ]
     return mat
