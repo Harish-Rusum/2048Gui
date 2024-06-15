@@ -1,11 +1,10 @@
 import pygame
 import random
 import sys
-import math
 
 pygame.init()
 
-screenHeight, screenWidth = 450, 400
+screenHeight, screenWidth = 460, 410
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 clock = pygame.time.Clock()
 fps = 60
@@ -15,7 +14,6 @@ from scripts.gravity import gravCalc
 from scripts.collision import collisionCalc
 from utils.CenteringEngine import center
 from utils.TextEngine import textRender
-
 
 def startPos():
     mat = [[0 for _ in range(4)] for _ in range(4)]
@@ -27,13 +25,11 @@ def startPos():
                 break
     return mat
 
-
 def displayLevelup(sc, surf, pos):
     for i in range(sc):
-        pygame.draw.circle(surf, (255, 255, 255), (pos[0] + (i * 2), pos[1]), 10)
+        pygame.draw.circle(surf, (255, 255, 255), (pos[0] + (i // 2), pos[1]), 10)
     if sc == 0:
         pygame.draw.circle(surf, (255, 255, 255), pos, 10)
-
 
 def addNum(mat, score):
     empty_cells = [(i, j) for i in range(4) for j in range(4) if mat[i][j] == 0]
@@ -43,28 +39,20 @@ def addNum(mat, score):
         score += 1
     return mat, score
 
-
-backgrounds = {
-    0: pygame.image.load("assets/brown.png"),
-    30: pygame.image.load("assets/blue.png"),
-    60: pygame.image.load("assets/wood.png"),
-    90: pygame.image.load("assets/metal.png"),
-    120: pygame.image.load("assets/marble.png"),
-}
-
-
 def getBg(sc):
-    return backgrounds[math.floor(sc / 30.0) * 30]
-
+    return pygame.transform.scale(
+            pygame.image.load(f"assets/{sc}.png").convert_alpha(), (90, 90)
+    )
 
 board = startPos()
-
 
 def main():
     global board
     score = 0
-    levelScore = 0
     yOffset = 50
+    bg = pygame.transform.scale(
+            pygame.image.load("assets/bg.png").convert_alpha(), (410,410)
+    )
 
     while running:
         for event in pygame.event.get():
@@ -85,20 +73,18 @@ def main():
                     board, score = addNum(board, score)
 
         screen.fill("#000000")
+        screen.blit(bg, (0,50))
         for i in range(4):
             for j in range(4):
-                x, y = j * 100, i * 100
+                x, y = j * 100, i * 100 + yOffset
                 if board[i][j] > 0:
-                    screen.blit(
-                        pygame.transform.scale(getBg(score), (100, 100)), (x, y + yOffset)
-                    )
-                    text = textRender(str(board[i][j]), "#ffffff", 20)
-                    text_pos = center(text, 100, 100)
-                    screen.blit(text, (x + text_pos[0], y + text_pos[1] + yOffset))
-                    displayLevelup(levelScore, screen, (20, 20))
-        levelScore = score % 30
+                    screen.blit(getBg(board[i][j]), (x + 10, y + 10))
+                    text = textRender(str(board[i][j]), "#000000", 20)
+                    textPos = center(text, 90, 90)
+                    screen.blit(text, (x + 10 + textPos[0], y + 10 + textPos[1]))
+        
+        displayLevelup(score, screen, (20, 20))
         pygame.display.flip()
         clock.tick(fps)
-
 
 main()
