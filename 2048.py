@@ -29,6 +29,8 @@ def startPos():
 def displayLevelup(sc,surf,pos):
     for i in range(sc):
         pygame.draw.circle(surf, (255,255,255), (pos[0]+(i * 2),pos[1]), 10)
+    if sc == 0:
+        pygame.draw.circle(surf, (255,255,255), pos, 10)
 
 def addNum(mat, score):
     empty_cells = [(i, j) for i in range(4) for j in range(4) if mat[i][j] == 0]
@@ -54,7 +56,8 @@ board = startPos()
 def main():
     global board
     score = 0
-    
+    levelScore = 0
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -82,8 +85,8 @@ def main():
                     text = textRender(str(board[i][j]), "#ffffff", 20)
                     text_pos = center(text, 100, 100)
                     screen.blit(text, (x + text_pos[0], y + text_pos[1]))
-                    displayLevelup(score, screen, (20,20))
-        
+                    displayLevelup(levelScore, screen, (20,20))
+        levelScore  = score % 30 
         pygame.display.flip()
         clock.tick(fps)
 
