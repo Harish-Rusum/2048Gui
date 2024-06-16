@@ -124,7 +124,6 @@ def main():
                         text = textRender(str(board[i][j]), "#000000", 20)
                         textPos = center(text, 90, 90)
                         screen.blit(text, (x + 10 + textPos[0], y + 10 + textPos[1]))
-            mode = "endscreen"
             displayScore(screen, score)
             pygame.display.flip()
             clock.tick(fps)
