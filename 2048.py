@@ -17,14 +17,17 @@ from utils.TextEngine import textRender
 
 
 def startPos():
+    score = 0
     mat = [[0 for _ in range(4)] for _ in range(4)]
     for _ in range(2):
         while True:
             i, j = random.choice(range(4)), random.choice(range(4))
             if mat[i][j] == 0:
-                mat[i][j] = random.choice([2, 4])
+                num = random.choice([ 2,4 ])
+                mat[i][j] = num
+                score += num
                 break
-    return mat
+    return mat,score
 
 
 def displayScore(surf, sc):
@@ -37,8 +40,9 @@ def addNum(mat, score):
     empty_cells = [(i, j) for i in range(4) for j in range(4) if mat[i][j] == 0]
     if empty_cells:
         i, j = random.choice(empty_cells)
-        mat[i][j] = random.choice([2, 4])
-        score += 1
+        num = random.choice([2,4])
+        mat[i][j] = num
+        score += num
     return mat, score
 
 
@@ -48,12 +52,11 @@ def getBg(sc):
     )
 
 
-board = startPos()
+board,score = startPos()
 
 
 def main():
-    global board, running
-    score = 0
+    global board, running,score
     yOffset = 50
     bg = pygame.transform.scale(
         pygame.image.load("assets/bg.png").convert_alpha(), (410, 410)
