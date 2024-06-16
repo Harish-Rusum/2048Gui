@@ -88,8 +88,10 @@ def main():
                     pygame.K_a,
                     pygame.K_LEFT,
                 ]:
+                    addPreBoard = list(board)
                     board = gravCalc(collisionCalc(gravCalc(board, dir), dir), dir)
-                    board, score = addNum(board, score)
+                    if addPreBoard != board:
+                        board, score = addNum(board, score)
 
         screen.fill("#000000")
         screen.blit(bg, (0, 50))
