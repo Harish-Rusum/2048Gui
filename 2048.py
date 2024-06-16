@@ -28,7 +28,7 @@ def startPos():
 
 
 def displayScore(surf, sc):
-    scoreText = textRender(str(sc), "#ffffff", 25)
+    scoreText = textRender(str(sc), "#000000", 20)
     textPos = center(scoreText, 410, 50)
     surf.blit(scoreText, textPos)
 
@@ -95,9 +95,15 @@ def main():
 
         screen.fill("#000000")
         screen.blit(bg, (0, 50))
+        screen.blit(
+            pygame.image.load("assets/scoreDisp.png").convert_alpha(), (0,0)        
+        )
         for i in range(4):
             for j in range(4):
                 x, y = j * 100, i * 100 + yOffset
+                screen.blit(
+                    pygame.transform.scale(pygame.image.load("assets/emptyTile.png").convert_alpha(), (90,90)), (x + 10, y + 10)
+                )
                 if board[i][j] > 0:
                     screen.blit(getBg(board[i][j]), (x + 10, y + 10))
                     text = textRender(str(board[i][j]), "#000000", 20)
