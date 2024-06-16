@@ -52,6 +52,21 @@ def getBg(sc):
     )
 
 
+def checkGameOver(mat):
+    preWasd = list(mat)
+    for i in range(len(mat)):
+        for j in range(len(mat[0])):
+            if mat[j][i] >= 2048:
+                return True,preWasd
+    w = gravCalc(collisionCalc(gravCalc(mat,"u"),"u"),"u")
+    a = gravCalc(collisionCalc(gravCalc(mat,"l"),"l"),"l")
+    s = gravCalc(collisionCalc(gravCalc(mat,"d"),"d"),"d")
+    d = gravCalc(collisionCalc(gravCalc(mat,"r"),"r"),"r")
+
+    if w == a == s == d:
+        return True,preWasd
+    return False,preWasd
+
 board,score = startPos()
 
 
@@ -95,6 +110,9 @@ def main():
                     board = gravCalc(collisionCalc(gravCalc(board, dir), dir), dir)
                     if addPreBoard != board:
                         board, score = addNum(board, score)
+                    over,board = checkGameOver(board)
+                    if over:
+                        sys.exit()
 
         screen.fill("#000000")
         screen.blit(bg, (0, 50))
